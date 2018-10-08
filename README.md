@@ -1,6 +1,12 @@
 ## 项目说明
 
-前端CNN图像识别项目
+前端CNN图像识别项目:
+
+* 打开页面，调出开发者工具控制台并切换到console面板
+* 等待console输出“模型训练好了”字段
+* 点击识别按钮即可输出识别结果
+
+![img-regression](docs/img-regression.jpg)
 
 ## 目录结构
 
