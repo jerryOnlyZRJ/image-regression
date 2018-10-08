@@ -29,7 +29,7 @@
         // stride：步长为2
         // 在这里我们无法看出这个框架池化是使用的Avy Pooling还是Max Pooling算法，先视为后者
         layer_defs.push({ type: 'pool', sx: 2, stride: 2 });
-        // 反复卷积和池化减小计算误差
+        // 反复卷积和池化减小模型误差
         layer_defs.push({ type: 'conv', sx: 5, filters: 20, stride: 1, pad: 2, activation: 'relu' });
         layer_defs.push({ type: 'pool', sx: 2, stride: 2 });
         layer_defs.push({ type: 'conv', sx: 5, filters: 20, stride: 1, pad: 2, activation: 'relu' });
@@ -41,11 +41,7 @@
         net.makeLayers(layer_defs);
         // 初始化训练机制
         const trainer = new convnetjs.SGDTrainer(net, { learning_rate: 0.01, momentum: 0.9, batch_size: 5, l2_decay: 0.0 });
-        // 训练模型
         let imageList = [];
-        for (let j = 0; j < carList.length; j++) {
-            imageList.push(loadData(j));
-        }
         const loadData = i => {
             return function () {
                 return new Promise(function (resolve, reject) {
@@ -61,7 +57,9 @@
                 })
             }
         }
-        
+        for (let j = 0; j < carList.length; j++) {
+            imageList.push(loadData(j));
+        }
         var testBtn = document.getElementById("test")
         function training(){
             testBtn.disabled = true
@@ -78,7 +76,7 @@
                 // 告诉机器每一类对应的是什么（即让机器认识图片的过程）
                 const carNameList = ["奥迪", "奔驰", "宝马", "本田", "别克", "比亚迪", "保时捷", "大众", "哈弗"];
                 const x = convnetjs.img_to_vol(document.getElementById('some_image'));
-                //console.log(net.forward(x));
+                // console.log(net.forward(x));
                 const result = Array.from(net.forward(x).w);
                 let max = Math.max.apply(Math, result);
                 console.log("最有可能的那个汽车logo🚗", carNameList[result.indexOf(max)])
