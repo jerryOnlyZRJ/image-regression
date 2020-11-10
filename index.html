@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <img src="http://p.pstatp.com/avatar/100x100/1dd5000018fab5bd782b.png" id="some_image" crossorigin="anonymous" />
+    <img src="./docs/123.png" id="some_image" crossorigin="anonymous" />
     <input type="button" value="识别" id="test" />
     <script src="./net/car.js"></script>
     <script src="./net/convnet.js"></script>
@@ -76,7 +76,7 @@
                 // 告诉机器每一类对应的是什么（即让机器认识图片的过程）
                 const carNameList = ["奥迪", "奔驰", "宝马", "本田", "别克", "比亚迪", "保时捷", "大众", "哈弗"];
                 const x = convnetjs.img_to_vol(document.getElementById('some_image'));
-                // console.log(net.forward(x));
+                console.log(net.forward(x),x);
                 const result = Array.from(net.forward(x).w);
                 let max = Math.max.apply(Math, result);
                 console.log("最有可能的那个汽车logo🚗", carNameList[result.indexOf(max)])
